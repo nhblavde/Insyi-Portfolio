@@ -311,11 +311,11 @@ function Skills() {
 }
 
 const PROJECTS = [
-  { t: 'EcoHero Mobile App Prototype' },
-  { t: 'UMPSA Koop Printing Management System' },
-  { t: 'Noir Photobooth Website', d: 'HTML, JavaScript, Google App Script, Google Drive, Google Sheet, GitHub' },
+  { t: 'EcoHero Mobile App Prototype', d: 'Figma' },
+  { t: 'UMPSA Koop Printing Management System', d: 'HTML, JavaScript, PHP, MySQL' },
+  { t: 'Noir Photobooth Website', d: 'HTML, Javascript, GitHub' },
   { t: 'Retail Sales Automation', d: 'PostgreSQL, Python, Power BI, Excel' },
-  { t: 'Keepsakes Website' },
+  { t: 'Keepsakes Website', d: 'HTML, JavaScript, Google App Script, Google Drive, Google Sheet, GitHub' },
 ]
 
 // Proof images: add files to public/projects/ named p<project>-<n>.jpg (e.g. p1-1.jpg, p1-2.jpg ...)
