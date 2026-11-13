@@ -137,8 +137,7 @@ function About() {
   }, [])
   return (
     <div className="h-full overflow-y-auto [scrollbar-width:none]">
-    <div className="flex min-h-full flex-col justify-center py-2">
-    
+    <div className="grid min-h-full items-center gap-4 py-2 md:grid-cols-[1.3fr_1fr]">
       <div>
         <Title no="02">About Me</Title>
         <h3 className="font-display text-6xl md:text-7xl font-bold text-[#fbefd0] min-h-[1.2em]">
