@@ -23,8 +23,8 @@ const EDUCATION = [
     title: 'Matriculation Programme',
     sub: '',
     school: 'Kolej Matrikulasi Pahang',
-    gpa: '',
-    focus: [] as string[],
+    gpa: 'CGPA: 3.79 / 4.00',
+    focus: ['Computer Science', 'Chemistry', 'Physics'] as string[],
   },
   {
     logo: `${BASE}smkc-logo.jpg`,
@@ -32,8 +32,8 @@ const EDUCATION = [
     title: 'Sijil Pelajaran Malaysia (SPM)',
     sub: '',
     school: 'SMK Chukai',
-    gpa: '',
-    focus: [] as string[],
+    gpa: 'Result: 8A 1B',
+    focus: ['Computer Science', 'Chemistry', 'Physics'] as string[],
   },
 ]
 
@@ -135,7 +135,7 @@ function About() {
     return () => clearTimeout(t)
   }, [])
   return (
-    <div className="h-full overflow-y-auto [scrollbar-color:#f5c518_transparent] [scrollbar-width:thin]">
+    <div className="h-full overflow-y-auto [scrollbar-width:thin]">
     <div className="grid min-h-full items-center gap-4 py-2 md:grid-cols-[1.3fr_1fr]">
       <div>
         <Title no="02">About Me</Title>
