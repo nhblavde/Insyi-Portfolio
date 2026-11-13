@@ -1,3 +1,4 @@
+import { createPortal } from 'react-dom'
 import { useCallback, useEffect, useState, type ReactNode } from 'react'
 import { ArrowLeft, ArrowRight, Mail, Phone, Code, GraduationCap, Briefcase, Award, User } from 'lucide-react'
 
@@ -287,6 +288,7 @@ function Skills() {
         <div className="space-y-8">
           <div><Label>Tools</Label><div className="flex flex-wrap gap-2">{tools.map((t, i) => <Chip key={t} i={i} solid>{t}</Chip>)}</div></div>
           <div><Label>Soft Skills</Label><div className="flex flex-wrap gap-2">{['Problem Solving', 'Time Management'].map((t, i) => <Chip key={t} i={i + 12} solid>{t}</Chip>)}</div></div>
+          <div><Label>Language</Label><p>Malay (Native)</p><p>English (MUET Band 4)</p></div>
         </div>
         <div className="space-y-8">
           <div>
@@ -300,7 +302,6 @@ function Skills() {
             </ul>
           </div>
           <div className="grid grid-cols-2 gap-6">
-            <div><Label>Language</Label><p>Malay (Native)</p><p>English (MUET Band 4)</p></div>
             <div><Label>Driving Licence</Label><p>B2, DA</p></div>
           </div>
         </div>
@@ -386,37 +387,113 @@ function ProjectDetail({ index, onBack }: { index: number; onBack: () => void })
   )
 }
 
+// List every image of a certificate inside imgs: [...] (files are in public/certificates/).
+// Leave imgs: [] if there is no image; that name stays as plain text.
+const CERTS = [
+  { name: 'Second Lieutenant in Army TD', imgs: ['tauliah.jpg'] as string[] },
+  { name: 'Cisco Certified Network Associate (CCNA) Certification', imgs: ['', '', ''] },
+  { name: 'Yayasan Peneraju Pahang – CompTIA Data+ Certification', imgs: ['comptia.jpg', 'kcom_comptia.jpg'] },
+  { name: 'Mobile Application Development Using Flutter Competency Training Certification', imgs: ['flutter.jpg'] },
+  { name: 'Certification of Participation in BCS3423 Integrated Business Processing Using SAP', imgs: ['sap.jpg'] },
+  { name: 'Certificates of Course Completion (Office Management, Human Resource Management, and Secretarial Management)', imgs: ['admin.jpg', 'hr.jpg', 'secretary.jpg'] },
+]
+
 function Achievements() {
-  const list = [
-    'Second Lieutenant in Army TD',
-    'Cisco Certified Network Associate (CCNA) Certification',
-    'Yayasan Peneraju Pahang – CompTIA Data+ Certification',
-    'Mobile Application Development Using Flutter Competency Training Certification',
-    'Certification of Participation in BCS3423 Integrated Business Processing Using SAP',
-    'Certificates of Course Completion (Office Management, Human Resource Management, and Secretarial Management)',
-  ]
+  const [open, setOpen] = useState<number | null>(null)
+  const [slide, setSlide] = useState(0)
+  const [touchX, setTouchX] = useState<number | null>(null)
+  const cert = open !== null ? CERTS[open] : null
+  const total = cert ? cert.imgs.length : 0
+
+  const move = useCallback((d: number) => {
+    if (total > 1) setSlide((s) => (s + d + total) % total)
+  }, [total])
+
+  const openCert = (i: number) => { setSlide(0); setOpen(i) }
+
+  useEffect(() => {
+    if (open === null) return
+    const h = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(null)
+      if (e.key === 'ArrowRight') move(1)
+      if (e.key === 'ArrowLeft') move(-1)
+    }
+    window.addEventListener('keydown', h)
+    return () => window.removeEventListener('keydown', h)
+  }, [open, move])
+
+  const arrow = 'absolute top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gold text-black ring-2 ring-black transition hover:scale-110'
+
   return (
     <div className="flex h-full flex-col justify-center">
       <Title no="07">Achievements and Certifications</Title>
       <div className="relative ml-3 pl-8">
         <div className="grow absolute left-0 top-0 h-full w-0.5 bg-gold" />
-        {list.map((a, i) => (
-          <div key={a} className="rise relative mb-4 flex items-start gap-3" style={{ animationDelay: `${300 + i * 250}ms` }}>
+        {CERTS.map((c, i) => (
+          <div key={c.name} className="rise relative mb-4 flex items-start gap-3" style={{ animationDelay: `${300 + i * 250}ms` }}>
             <span className="absolute -left-[38px] top-1.5 h-3 w-3 rounded-full bg-gold" />
             <Award className="mt-0.5 shrink-0 text-gold" size={20} />
-            <p className="text-lg text-[#fbefd0]">{a}</p>
+            {c.imgs.length > 0 ? (
+              <button onClick={() => openCert(i)} className="cursor-pointer text-left text-lg text-[#fbefd0] underline decoration-gold/50 underline-offset-4 transition hover:text-gold">
+                {c.name}
+              </button>
+            ) : (
+              <p className="text-lg text-[#fbefd0]">{c.name}</p>
+            )}
           </div>
         ))}
       </div>
+
+      {cert && createPortal(
+        <div onClick={() => setOpen(null)} className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4">
+          <div
+            onClick={(e) => e.stopPropagation()}
+            onTouchStart={(e) => setTouchX(e.touches[0].clientX)}
+            onTouchEnd={(e) => {
+              if (touchX === null) return
+              const dx = e.changedTouches[0].clientX - touchX
+              if (Math.abs(dx) > 50) move(dx < 0 ? 1 : -1)
+              setTouchX(null)
+            }}
+            className="relative w-full max-w-4xl rounded-lg border-2 border-gold bg-wine-deep p-3"
+          >
+            <button onClick={() => setOpen(null)} aria-label="Close" className="absolute right-3 top-3 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-gold text-black ring-2 ring-black">✕</button>
+            <p className="mb-3 pr-12 text-sm font-semibold text-gold">{cert.name}</p>
+
+            <div className="overflow-hidden rounded">
+              <div className="flex transition-transform duration-500 ease-out" style={{ transform: `translateX(-${slide * 100}%)` }}>
+                {cert.imgs.map((src) => (
+                  <img key={src} src={`${BASE}certificates/${src}`} alt={cert.name} className="h-[68vh] w-full shrink-0 object-contain" />
+                ))}
+              </div>
+            </div>
+
+            {total > 1 && (
+              <>
+                <button onClick={() => move(-1)} aria-label="Previous" className={`${arrow} left-5`}><ArrowLeft size={20} /></button>
+                <button onClick={() => move(1)} aria-label="Next" className={`${arrow} right-5`}><ArrowRight size={20} /></button>
+                <div className="mt-3 flex items-center justify-center gap-3">
+                  <span className="font-mono text-xs text-gold">{slide + 1} / {total}</span>
+                  <div className="flex gap-2">
+                    {cert.imgs.map((src, k) => (
+                      <button key={src} aria-label={`Image ${k + 1}`} onClick={() => setSlide(k)} className={`h-2 rounded-full transition-all ${k === slide ? 'w-6 bg-gold' : 'w-2 bg-gold/40'}`} />
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        </div>,
+        document.body,
+      )}
     </div>
   )
 }
-
 // Replace these with your real details
 const CONTACT = {
-  email: 'your.email@example.com',
-  phone: '+60 12-345 6789',
-  github: 'github.com/your-username',
+  email: 'nurulinsyirah0112@gmail.com',
+  phone: '+60 11-188 54968',
+  github: 'github.com/nhblavde',
 }
 
 function Contact() {
