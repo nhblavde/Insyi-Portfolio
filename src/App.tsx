@@ -48,8 +48,9 @@ const CAREER = [
 // About Me paragraph (edit freely)
 const ABOUT_TEXT = [
   `I'm Insyi.`,
-  `My interests revolve around database management, Python programming, SQL, data engineering, and cloud technologies. I enjoy learning through hands-on projects, experimenting with AI-assisted development (yes, a little vibe coding here and there), and exploring how frontend applications, backend systems, databases, and cloud platforms work together.`,
-  `I believe the best way to learn is to build something, break something, fix it, and understand why it works. Always curious, always building, and definitely not done learning.`,
+  `A curious mind with probably too many tabs open while trying to figure out how things work behind the scenes.`,
+  `Currently exploring database management, Python programming, SQL, and cloud technologies. I enjoy learning through hands-on projects, experimenting with AI-assisted development (yes, a little vibe coding here and there), and exploring how frontend applications, backend systems, databases, and cloud platforms work together.`,
+  `Still figuring things out, collecting new skills, and occasionally arguing with my own code.`,
 ]
 
 /* ---------- helpers ---------- */
