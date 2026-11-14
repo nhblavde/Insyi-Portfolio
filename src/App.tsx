@@ -40,9 +40,9 @@ const EDUCATION = [
 
 // Page 04 - Career descriptions. Write your text between the quotes.
 const CAREER = [
-  { title: 'Internship', desc: '' },
-  { title: 'Promoter', desc: '' },
-  { title: 'Freelance', desc: '' },
+  { title: 'Internship', desc: 'Dimension Bid Sdn. Bhd.' },
+  { title: 'Promoter', desc: 'TMG Kemaman, Fresh Choice Kemaman, Nirwana Kemaman, Pantai Selamat Kemaman' },
+ // { title: 'Freelance', desc: '' },
 ]
 
 // About Me paragraph (edit freely)
