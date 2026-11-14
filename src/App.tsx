@@ -321,29 +321,40 @@ const PROJECTS = [
 
 // Proof images: add files to public/projects/ named p<project>-<n>.jpg (e.g. p1-1.jpg, p1-2.jpg ...)
 // Increase PROOF_COUNT or edit DESCRIPTIONS below when you are ready.
-const PROOF_COUNT = 3
-const DESCRIPTIONS: Record<number, string> = {}
+const PROOF_COUNT = 6 // This tells your website how many pictures to display for each project.
+const DESCRIPTIONS: Record<number, string> = {} // This is where you store the detailed descriptions of your projects.
 
-function Projects({ onOpen }: { onOpen: (i: number) => void }) {
+// onOpen = It's an instruction telling the website what to do when someone clicks on a project.
+// - i: receives a number.
+// - number: that number represents the project's position.
+// - void: the function does not return a value.
+// For example, clicking the first project sends 0 to onOpen.
+function Projects({ onOpen }: { onOpen: (i: number) => void }) { 
   return (
     <div className="flex h-full flex-col justify-center">
       <Title no="06">Projects</Title>
-      <div className="space-y-3">
-        {PROJECTS.map((p, i) => (
+      <div className="space-y-3"> // Creating space between projects
+        {PROJECTS.map((p, i) => ( // .map() = go through every project. (in const PROJECTS)
           <div
-            key={p.t}
+            key={p.t} // React uses key to identify each project card.
+            // Making the project clickable
             role="button"
             tabIndex={0}
             onClick={() => onOpen(i)}
+            // Keyboard interaction. This allows users to open a project using their keyboard.
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen(i) } }}
+            // Styling the project card
             className="rise group flex cursor-pointer items-start gap-5 rounded-lg border border-gold/30 bg-wine/60 px-5 py-4 transition hover:border-gold hover:bg-wine-soft"
             style={{ animationDelay: `${i * 120}ms` }}
           >
+            // Displaying the project number
             <span className="font-display text-3xl font-bold text-gold">{i + 1}</span>
+            // Displaying the project name
             <div className="flex-1">
               <h3 className="text-lg font-semibold text-[#fbefd0]">{p.t}</h3>
-              {p.d && <p className="text-sm text-[#fbefd0]/70">{p.d}</p>}
+              {p.d && <p className="text-sm text-[#fbefd0]/70">{p.d}</p>} // Displaying the short description
             </div>
+            // This displays a right-facing arrow. It starts invisible because of: opacity-0
             <ArrowRight className="self-center text-gold opacity-0 transition group-hover:translate-x-1 group-hover:opacity-100" size={20} />
           </div>
         ))}
@@ -352,16 +363,25 @@ function Projects({ onOpen }: { onOpen: (i: number) => void }) {
   )
 }
 
-function ProjectDetail({ index, onBack }: { index: number; onBack: () => void }) {
-  const p = PROJECTS[index]
-  return (
+const PROJECT_IMAGES: Record<number, string[]> = {
+  0: ["png", "png", "png", "png", "png", "png"],
+  1: ["png", "png", "png", "png", "png", "png"],
+  2: ["png", "png", "png", "png", "png", "png"],
+  3: ["png", "png", "png", "png", "png", "png"],
+  4: ["jpg", "jpg", "jpg", "png", "png", "png"]
+}
+
+function ProjectDetail({ index, onBack }: { index: number; onBack: () => void }) { // index = 	Identifies which project the visitor selected
+  const p = PROJECTS[index] // Retrieving the selected project
+  return ( // Creating the detail page
     <div className="flex h-full flex-col">
       <div className="rise mb-6 flex items-center gap-5">
+        // The Back button
         <button onClick={onBack} className="inline-flex shrink-0 items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-black ring-2 ring-black transition hover:scale-105">
           <ArrowLeft size={16} /> Back
         </button>
         <div className="min-w-0">
-          <p className="font-mono text-xs tracking-widest text-gold">PROJECT {String(index + 1).padStart(2, '0')}</p>
+          <p className="font-mono text-xs tracking-widest text-gold">PROJECT {String(index + 1).padStart(2, '0')}</p> // Displaying the project number
           <h2 className="truncate font-display text-3xl font-bold text-gold md:text-4xl">{p.t}</h2>
         </div>
       </div>
@@ -369,8 +389,10 @@ function ProjectDetail({ index, onBack }: { index: number; onBack: () => void })
         <div className="space-y-4 overflow-y-auto pr-2 [scrollbar-width:thin]">
           {Array.from({ length: PROOF_COUNT }, (_, k) => (
             <div key={k} className="rise overflow-hidden rounded-lg border border-gold/40 bg-wine-deep" style={{ animationDelay: `${200 + k * 150}ms` }}>
+              // Photo in .jpg
               <Photo
-                src={`${BASE}projects/p${index + 1}-${k + 1}.jpg`}
+                // src={`${BASE}projects/p${index + 1}-${k + 1}.jpg`} --> old one (only jpg)
+                src={`${BASE}projects/p${index + 1}-${k + 1}.${PROJECT_IMAGES[index]?.[k] ?? "jpg"}`} // --> both jpg and png
                 alt={`${p.t} proof ${k + 1}`}
                 className="aspect-video w-full"
                 fallback={<span className="text-sm">Add public/projects/p{index + 1}-{k + 1}.jpg</span>}
