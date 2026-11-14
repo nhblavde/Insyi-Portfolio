@@ -322,6 +322,13 @@ const PROJECTS = [
 // Proof images: add files to public/projects/ named p<project>-<n>.jpg (e.g. p1-1.jpg, p1-2.jpg ...)
 // Increase PROOF_COUNT or edit DESCRIPTIONS below when you are ready.
 const PROOF_COUNT = 6 // This tells your website how many pictures to display for each project.
+const PROJECT_IMAGES: Record<number, string[]> = {
+  0: ["png", "png", "png", "png", "png", "png"],
+  1: ["png", "png", "png", "png", "png", "png"],
+  2: ["png", "png", "png", "png", "png", "png"],
+  3: ["png", "png", "png", "png", "png", "png"],
+  4: ["jpg", "jpg", "jpg", "png", "png", "png"]
+}
 const DESCRIPTIONS: Record<number, string> = {} // This is where you store the detailed descriptions of your projects.
 
 // onOpen = It's an instruction telling the website what to do when someone clicks on a project.
@@ -361,14 +368,6 @@ function Projects({ onOpen }: { onOpen: (i: number) => void }) {
       </div>
     </div>
   )
-}
-
-const PROJECT_IMAGES: Record<number, string[]> = {
-  0: ["png", "png", "png", "png", "png", "png"],
-  1: ["png", "png", "png", "png", "png", "png"],
-  2: ["png", "png", "png", "png", "png", "png"],
-  3: ["png", "png", "png", "png", "png", "png"],
-  4: ["jpg", "jpg", "jpg", "png", "png", "png"]
 }
 
 function ProjectDetail({ index, onBack }: { index: number; onBack: () => void }) { // index = 	Identifies which project the visitor selected
