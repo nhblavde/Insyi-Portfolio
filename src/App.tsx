@@ -283,7 +283,7 @@ function Skills() {
     'Canva (Poster)', 'CapCut (Video Editing)', 'SAP (Business)', 'Figma (UI/UX Design)',
   ]
   return (
-    <div className="h-full overflow-y-auto py-2 [scrollbar-width:none]">
+    <div className="h-full overflow-y-auto py-2 [scrollbar-width:none] flex items-center justify-center">
       <Title no="05">Skills</Title>
       <div className="grid gap-10 md:grid-cols-2">
         <div className="space-y-8">
