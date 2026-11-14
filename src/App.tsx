@@ -130,7 +130,7 @@ function Cover({ onStart }: { onStart: () => void }) {
 }
 
 function About() {
-  const hello = useTyping('Hello! I'm Insyi', 120, 300)
+  const hello = useTyping('Hello!', 120, 300)
   const [revealed, setRevealed] = useState(false)
   useEffect(() => {
     const t = window.setTimeout(() => setRevealed(true), 3300)
