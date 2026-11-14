@@ -340,28 +340,28 @@ function Projects({ onOpen }: { onOpen: (i: number) => void }) {
   return (
     <div className="flex h-full flex-col justify-center">
       <Title no="06">Projects</Title>
-      <div className="space-y-3"> // Creating space between projects
-        {PROJECTS.map((p, i) => ( // .map() = go through every project. (in const PROJECTS)
+      <div className="space-y-3"> <!-- Creating space between projects --> 
+        {PROJECTS.map((p, i) => ( <!-- .map() = go through every project. (in const PROJECTS) --> 
           <div
-            key={p.t} // React uses key to identify each project card.
-            // Making the project clickable
+            key={p.t} <!--  React uses key to identify each project card. -->
+            <!-- Making the project clickable --> 
             role="button"
             tabIndex={0}
             onClick={() => onOpen(i)}
-            // Keyboard interaction. This allows users to open a project using their keyboard.
+            <!-- Keyboard interaction. This allows users to open a project using their keyboard. --> 
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen(i) } }}
-            // Styling the project card
+            <!-- Styling the project card --> 
             className="rise group flex cursor-pointer items-start gap-5 rounded-lg border border-gold/30 bg-wine/60 px-5 py-4 transition hover:border-gold hover:bg-wine-soft"
             style={{ animationDelay: `${i * 120}ms` }}
           >
-            // Displaying the project number
+            <!-- Displaying the project number --> 
             <span className="font-display text-3xl font-bold text-gold">{i + 1}</span>
-            // Displaying the project name
+            <!-- Displaying the project name --> 
             <div className="flex-1">
               <h3 className="text-lg font-semibold text-[#fbefd0]">{p.t}</h3>
               {p.d && <p className="text-sm text-[#fbefd0]/70">{p.d}</p>} // Displaying the short description
             </div>
-            // This displays a right-facing arrow. It starts invisible because of: opacity-0
+            <!-- This displays a right-facing arrow. It starts invisible because of: opacity-0 --> 
             <ArrowRight className="self-center text-gold opacity-0 transition group-hover:translate-x-1 group-hover:opacity-100" size={20} />
           </div>
         ))}
@@ -375,7 +375,7 @@ function ProjectDetail({ index, onBack }: { index: number; onBack: () => void })
   return ( // Creating the detail page
     <div className="flex h-full flex-col">
       <div className="rise mb-6 flex items-center gap-5">
-        // The Back button
+        <!-- The Back button --> 
         <button onClick={onBack} className="inline-flex shrink-0 items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-black ring-2 ring-black transition hover:scale-105">
           <ArrowLeft size={16} /> Back
         </button>
@@ -388,10 +388,10 @@ function ProjectDetail({ index, onBack }: { index: number; onBack: () => void })
         <div className="space-y-4 overflow-y-auto pr-2 [scrollbar-width:thin]">
           {Array.from({ length: PROOF_COUNT }, (_, k) => (
             <div key={k} className="rise overflow-hidden rounded-lg border border-gold/40 bg-wine-deep" style={{ animationDelay: `${200 + k * 150}ms` }}>
-              // Photo in .jpg
+              <!-- Photo in .jpg --> 
               <Photo
-                // src={`${BASE}projects/p${index + 1}-${k + 1}.jpg`} --> old one (only jpg)
-                src={`${BASE}projects/p${index + 1}-${k + 1}.${PROJECT_IMAGES[index]?.[k] ?? "jpg"}`} // --> both jpg and png
+                <!-- src={`${BASE}projects/p${index + 1}-${k + 1}.jpg`} old one (only jpg) --> 
+                src={`${BASE}projects/p${index + 1}-${k + 1}.${PROJECT_IMAGES[index]?.[k] ?? "jpg"}`} <!-- both jpg and png --> 
                 alt={`${p.t} proof ${k + 1}`}
                 className="aspect-video w-full"
                 fallback={<span className="text-sm">Add public/projects/p{index + 1}-{k + 1}.jpg</span>}
