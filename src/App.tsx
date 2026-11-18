@@ -288,7 +288,7 @@ function Skills() {
       <div className="grid gap-10 md:grid-cols-2">
         <div className="space-y-8">
           <div><Label>Tools</Label><div className="flex flex-wrap gap-2">{tools.map((t, i) => <Chip key={t} i={i} solid>{t}</Chip>)}</div></div>
-          <div><Label>Soft Skills</Label><div className="flex flex-wrap gap-2">{['Problem Solving', 'Time Management'].map((t, i) => <Chip key={t} i={i + 12} solid>{t}</Chip>)}</div></div>
+          <div><Label>Soft Skills</Label><div className="flex flex-wrap gap-2">{['Adaptability', 'Time Management'].map((t, i) => <Chip key={t} i={i + 12} solid>{t}</Chip>)}</div></div>
           <div><Label>Language</Label><p>Malay (Native)</p><p>English (MUET Band 4)</p></div>
         </div>
         <div className="space-y-8">
