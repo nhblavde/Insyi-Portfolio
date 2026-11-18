@@ -277,10 +277,10 @@ function Career() {
 }
 
 function Skills() {
-  const tools = ['Excel', 'Power BI', 'Python', 'SQL', 'HTML', 'CSS', 'JavaScript', 'C', 'Canva', 'CapCut', 'SAP', 'Figma']
+  const tools = ['Excel', 'Power BI', 'Python', 'SQL', 'HTML', 'CSS', 'JavaScript', 'C', 'Canva', 'SAP', 'Figma']
   const tech = [
-    'Microsoft Excel', 'SQL (MySQL | PostgreSQL)', 'Python (Pandas)', 'Power BI', 'HTML, CSS, JavaScript, PHP (Web Development)',
-    'Canva (Poster)', 'CapCut (Video Editing)', 'SAP (Business)', 'Figma (UI/UX Design)',
+    'SQL (MySQL | PostgreSQL)', 'Python (Pandas)', 'HTML, CSS, JavaScript, PHP (Web Development)',
+    'Canva (Slides)', 'SAP (Business)',
   ]
   return (
     <div className="h-full overflow-y-auto py-2 [scrollbar-width:none]">
